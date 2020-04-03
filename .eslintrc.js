@@ -6,6 +6,6 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended'
   ],
   rules: {
-    'no-console': false,
+    'no-underscore-dangle': 0,
   }
 };
