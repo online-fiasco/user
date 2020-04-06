@@ -22,12 +22,19 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
+    - name: Install dependancies
+      run: npm install
+
     - name: Test
       run: npm test
 
     - name: Send success message on discord
-      run: node .github/workflowsbdiscord
+      run: node .github/workflows/discord
+      env:
+        SUCCESS: true
     
     - name: Send failure message on discord
       if: failure()
       run: node .github/workflows/discord
+      env:
+        SUCCESS: false
