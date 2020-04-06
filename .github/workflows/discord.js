@@ -2,6 +2,7 @@ const axios = require('axios');
 
 const webhook = process.env.WEBHOOK;
 const messageType = process.env.MESSAGE_TYPE;
+const github = process.env.GITHUB;
 
 const getInfoMessage = () => (
   {
@@ -38,5 +39,7 @@ const getPayload = () => {
       break;
   }
 }
+
+console.log(github);
 
 axios.post(webhook, getPayload())
