@@ -39,4 +39,4 @@ jobs:
       env:
         WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         GITHUB: ${{ toJson(github) }}
-        SUCCESS: test-failed
+        MESSAGE_TYPE: test-failed
