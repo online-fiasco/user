@@ -28,6 +28,7 @@ jobs:
     - name: Send info message on discord
       run: node .github/workflows/discord
       env:
+        WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         MESSAGE_TYPE: info
 
     - name: Test
@@ -36,10 +37,12 @@ jobs:
     - name: Send success message on discord
       run: node .github/workflows/discord
       env:
+        WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         MESSAGE_TYPE: test-success
     
     - name: Send failure message on discord
       if: failure()
       run: node .github/workflows/discord
       env:
+        WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         SUCCESS: test-failed
