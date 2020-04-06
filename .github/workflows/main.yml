@@ -25,16 +25,21 @@ jobs:
     - name: Install dependancies
       run: npm install
 
+    - name: Send info message on discord
+      run: node .github/workflows/discord
+      env:
+        MESSAGE_TYPE: info
+
     - name: Test
       run: npm test
 
     - name: Send success message on discord
       run: node .github/workflows/discord
       env:
-        SUCCESS: true
+        MESSAGE_TYPE: test-success
     
     - name: Send failure message on discord
       if: failure()
       run: node .github/workflows/discord
       env:
-        SUCCESS: false
+        SUCCESS: test-failed
