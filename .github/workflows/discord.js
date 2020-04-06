@@ -1,3 +1,5 @@
 const axios = require('axios');
 
-console.log(axios)
+const isSucceed = process.env.SUCCESS
+
+console.log(isSucceed)
