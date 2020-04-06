@@ -26,8 +26,8 @@ jobs:
       run: npm test
 
     - name: Send success message on discord
-      run: node .github\workflows\discord
+      run: node .github/workflowsbdiscord
     
     - name: Send failure message on discord
       if: failure()
-      run: node .github\workflows\discord
+      run: node .github/workflows/discord
