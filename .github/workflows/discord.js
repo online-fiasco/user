@@ -51,4 +51,6 @@ const getPayload = () => {
   }
 }
 
+console.log(webhook, getPayload());
+
 axios.post(webhook, getPayload())
