@@ -21,11 +21,11 @@ const getInfoMessage = () => (
           },
           {
             "name": "Commit",
-            "value": `[${github.event.after.slice(0, 7)}](https://${github.repository}/commit/${github.event.after})`
+            "value": `[${github.event.after.slice(0, 7)}](https://github.com/${github.repository}/commit/${github.event.after})`
           }
         ],
         "title": `:sparkles: New commit: ${github.event.after.slice(0, 7)} :sparkles:`,
-        "description": github.event.commits.map(commit => commit.id === github.event.after)[0].message,
+        "description": github.event.head_commit.message,
         "footer": {
           "text": `commit by ${github.actor}`,
           "icon_url": github.event.sender.avatar_url,
