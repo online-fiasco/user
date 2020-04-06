@@ -40,10 +40,15 @@ const getPayload = () => {
   {
     case 'info':
       return getInfoMessage();
-      break;
+    case 'test-success':
+      return {
+        "content": ":white_check_mark: <@&696626988147933215> Test succeed! Good job :white_check_mark:"
+      };
+    case 'test-failed':
+      return {
+        "content": `:octagonal_sign: <@&696626988147933215> Test failed! Please check in [here](https://github.com/${github.repository}/actions) :octagonal_sign:`
+      }
   }
 }
-
-console.log(github);
 
 axios.post(webhook, getPayload())
