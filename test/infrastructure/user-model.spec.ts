@@ -12,9 +12,11 @@ const userData = {
 
 describe('/infrastructure/user-model', () => {
   before(async () => {
-    const options = { useNewUrlParser: true, useCreateIndex: true };
+    if (mongoose.connection.readyState === 0) {
+      const options = { useNewUrlParser: true, useCreateIndex: true };
 
-    await mongoose.connect(global.TEST_MONGO_URI, options);
+      await mongoose.connect(global.TEST_MONGO_URI, options);
+    }
   });
 
   it('create & save user successfully', async () => {
