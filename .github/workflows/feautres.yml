@@ -1,0 +1,41 @@
+name: CI
+
+on: 
+  push:
+    branches:
+      - 'feature/**'
+  
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install dependancies
+      run: npm install
+
+    - name: Send info message on discord
+      run: node .github/workflows/discord
+      env:
+        WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        GITHUB: ${{ toJson(github) }}
+        MESSAGE_TYPE: info
+
+    - name: Test
+      run: npm test
+
+    - name: Send success message on discord
+      run: node .github/workflows/discord
+      env:
+        WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        GITHUB: ${{ toJson(github) }}
+        MESSAGE_TYPE: test-success
+    
+    - name: Send failure message on discord
+      if: failure()
+      run: node .github/workflows/discord
+      env:
+        WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        GITHUB: ${{ toJson(github) }}
+        MESSAGE_TYPE: test-failed
