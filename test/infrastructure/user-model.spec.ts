@@ -1,8 +1,9 @@
 // @ts-nocheck
 
 import * as mongoose from 'mongoose';
-
+import { config } from 'dotenv';
 import { expect } from 'chai';
+import UserModel from '../../src/infrastructure/UserModel';
 
 const userData = {
   username: 'testuser',
@@ -11,11 +12,17 @@ const userData = {
 };
 
 describe('/infrastructure/user-model', () => {
-  before(async () => {
+  before((done) => {
+    config();
+
     if (mongoose.connection.readyState === 0) {
       const options = { useNewUrlParser: true, useCreateIndex: true };
+      mongoose.connect(process.env.TEST_MONGO_URI, options);
 
-      await mongoose.connect(global.TEST_MONGO_URI, options);
+      const db = mongoose.connection;
+      db.once('open', () => {
+        done();
+      });
     }
   });
 
@@ -24,7 +31,7 @@ describe('/infrastructure/user-model', () => {
     const savedUser = await user.save();
 
     const { username, password, salt } = userData;
-    expect(savedUser._id).to.not.be.undefined();
+    expect(savedUser._id).to.not.be.undefined;
     expect(savedUser.username).to.be.equals(username);
     expect(savedUser.password).to.be.equals(password);
     expect(savedUser.salt).to.be.equals(salt);
@@ -45,7 +52,7 @@ describe('/infrastructure/user-model', () => {
       }
 
       expect(err).to.be.instanceOf(mongoose.Error.ValidationError);
-      expect(err.errors[field]).to.not.be.undefined();
+      expect(err.errors[field]).to.not.be.undefined;
     };
 
     await Promise.all(requiredField.map(validator));

@@ -8,5 +8,7 @@ module.exports = {
   rules: {
     'no-underscore-dangle': 0,
     'object-curly-newline': 0,
+    'import/extensions': 0,
+    'no-unused-expressions': 0,
   }
 };
