@@ -24,7 +24,7 @@ describe('/infrastructure/user', () => {
     const saveMock = sinon.stub(mongoose.Document.prototype, 'save');
     saveMock.resolves({ ...userData, id: 'test user id' });
 
-    const user = await UserDTO.createUser(userData);
+    const user = await UserDAO.createUser(userData);
     const { id, username, password, salt } = user;
 
     expect(saveMock.called).is.true();
@@ -38,7 +38,7 @@ describe('/infrastructure/user', () => {
     const findMock = sinon.stub(mongoose.Model, 'findOne');
     findMock.resolves({ id: 'sampleUser', ...userData });
 
-    const user = await userDTO.findUser('sampleUser');
+    const user = await UserDAO.findUser('sampleUser');
     const { id, username, password, salt } = user;
 
     expect(findMock.calledWith({ id: 'sampleUser' })).is.true();
