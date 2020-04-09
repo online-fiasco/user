@@ -46,7 +46,7 @@ describe('/infrastructure/user-model', () => {
 
       let err: Error;
       try {
-        await new UserModel(userData).save();
+        await new UserModel(userDataWithoutField).save();
       } catch (error) {
         err = error;
       }
